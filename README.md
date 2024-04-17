@@ -26,7 +26,7 @@ Tambien hay que tener en cuenta el caso borde donde c == 'g'
 
 ## F - Median Maximization
 Dado los inputs n y k debemos encontra el median M <br>
-Podemos considerar que del M para atras todas las posiciones se encuentran vacias por lo que tendriamo $m = \fraq{n}{2} + 1$ numeros que tendran que ser al menos M <br>
+Podemos considerar que del M para atras todas las posiciones se encuentran vacias por lo que tendriamo $m = \frac{n}{2} + 1$ numeros que tendran que ser al menos M <br>
 Para cualquier n y k tenemos que $M \leq k$ por lo tanto podemos usar una binary search para encontrar el punto de corte donde $M \ast m \geq k\$ con el menor M posible <br>
 
 ## G - Sushi Tour
