@@ -31,3 +31,48 @@ Para cualquier n y k tenemos que $M \leq k$ por lo tanto podemos usar una binary
 
 ## G - Sushi Tour
 En este ejercicio simplemente hay que hacer un seguimiento de la cantidad de elementos seguidos de cada uno y quedarse con el mayor de los menores consecutivos
+
+## H - Flower City Fence
+
+
+## I - Points In Line
+Siendo $nums$ el arreglo con las coordenadas de los distintos puntos y $d$ la distancia maxima <br>
+Para encontrar la cantidad de trios que cumplen con la condicion basta con recorrer el array utilizando dos punteros $i$ y $j$, el primero manejado por un for y el segundo por un while. <br>
+Siempre que $nums[i] - nums[j] > d$ el punto $j$ aumentara hasta que la diferencia sea menor a $d$. <br>
+Cada vez que $nums[i] - nums[j] \leq d$ sumaremos a la respuesta la siguiente cuenta $(i-j)*(i-j-1)/2$, la misma representa la cantidad de trios que se pueden formar con los elementos entre $j$ e $i$
+
+## J - Dungeon
+Lo primero de lo que podemos darnos cuenta es que cada 7 turnos realizamos 9 de daño, por lo tanto, siendo $a$, $b$ y $c$ la vida de los 3 monstruos es necesario que $\frac{a+b+c}{9} = k$ siendo $k$ un numero entero, en otras palabras el resto de dividir por 9 la vida de los 3 monstruos debe ser igual a 0. <br>
+Sin embargo, tambien es necesario que la vida individual de cada uno de ellos sea al menos $k$ ya que cada uno de ellos va a recibir $k$ puntos de daño.
+
+## K - Poisoned Dagger
+Debemos encontrar el menor numero $k$ de veneno que nos permita matar a un dragon con vida $h$ atacando $n$ veces. <br>
+Los ataques suceden en segundo especificos denominados $s_i$. <br>
+Para encontrar el valor de $k$ debemos realizar una busqueda binaria con valores iniciales $a = -1$ y $b = 1e18$, ademas debemos declarar una variable $suma = 0$ <br>
+En cada iteracion calcularemos $m = (a+b)/2$ y haremos $suma = m$ ya que despues del ultimo ataque el veneno se aplica durante el total de su duracion. Luego, añadiremos a la suma el minimo entre entre $m$ o el intervalo entre segundos, es decir: $suma += min(m,s_i - s_{i-1}$ para todos los $n$ ataques. <br> 
+Si despues de terminar esta operacion tenemos que $suma \geq h \implies b = m$ <br>
+Por otro lado, si tenemos que $suma < h \implies a = m$
+
+## L - Binary Deque
+Dada una suma $S$ y un array de longitud $n$ compuesto solamente de 0 y 1 debemos encontrar la menor cantidad de elementos a revomer para hacer que la suma suma total del array sea igual a $S$. <br>
+Lo primero que podemos es hacer es comprobar si la suma entera del array (a la cual llamaremos $Sum$) es menor a $S$, si esto sucede es implosible conseguir la suma por lo que la salida sera $-1$ <br>
+Por el otro lado si se da que $Sum = S$ entonces la salida sera directamente $0$ ya que no sera necesario realizar ningun movimiento <br>
+Descartadas estas dos situaciones, para poder conocer la cantidad minima de movimientos deberemos recorrer todo el array llevando dos punteros $a=0$ y $b=0$, ademas, a partir de ahora $Sum$ sera solo la suma de los elementos entre $a$ y $b$ (incluidos) <br>
+El puntero $b$ se movera hacia adelante si sucede que $Sum = S$ y el puntero $a$ en el caso de que $Sum > S$. Cada vez que se mueva el puntero $b$ debemos hacer lo siguiente $max(ans,b-a+1)$, con esto lo que hacemos es quedarnos siempre con la mayor cantidad de elementos encontrados en un intervalo donde $Sum = S$ <br>
+Finalmente la respuesta sera $resp = n - ans$.
+
+## M - Building An Aquarium
+El objetivo del ejercicio es construir un acuario con la mayor altura posible dadas las alturas de los corales dentro del mismo y la cantidad maxima de agua que podemos utilizar. <br>
+Sea $alt_i$ la altura de cada coral $a_i$ y $h$ la altura del acuario entonces el agua que se utiliza en cada coral es $w_i = h - alt_i$ siempre que $h-alt_i > 0$ <br>
+Para encontrar el h maximo vamos a realizar una busqueda binaria con valores iniciales talque $a=-1$ y $b=1e10$, ademas vamos a declarar una variable suma que va a ser igual a $$\mathrm{suma} = \sum_{i=0}^{n} medio-alt_i$$ siempre que $medio - alt_i > 0$ <br>
+Si resulta que $suma = W$ siendo W la cantidad maxima que se puede utilizar utilizar de agua entonces la busqueda binaria termina y retorna el valor de medio <br>
+Si resulta que $suma > W \implies b = medio$, si por el contrario $suma < W \implies a = medio$
+
+## N - Fibonaccharsis
+Dados dos integers n y k debemos encontrar la cantidad de secuencias de estilo fibonacci que tengan al numero n en la posicion k <br>
+La secuencia original de fibonacci es una secuencia de la forma $f_i = f_{i-1} + f_{i-2}$ con $f_0 = 0$ y $f_1 = 1$ <br>
+Quitando el caso donde $f_0 = 0$ y $f_1 = 0$ se tiene que para todo $k \geq 7 \implies n > k$ para cualquier $f_0$ y $f_1$ <br>
+Otra propiedad a tener en cuenta es que todos los numeros de la secuencia son positivos por lo tanto $f_{i+1} \geq f_i$ para todo i <br>
+Con todo esto en mente podemos partir de fijar n en la posicion k e ir probando todos los numeros x tales que $x \leq n$ y verificar si conforman una secuencia validad <br>
+Para esto vamos declarar una variable $fst = x$ y otra $snd = n$, luego vamos a utilizar una variable auxiliar $aux$ para realizar lo siguiente $$aux = fst$$ $$fst = snd - aux$$ $$snd = aux$$ <br>
+Con esto lo que hacemos es calcular la secuencia de forma inversa, es decir, desde la posicion $k$ hasta las dos primeras posiciones y como ya se establecio antes si la secuencia es validad no puede suceder que $fst > snd$ ni que $fst < 0$ o $snd < 0$
